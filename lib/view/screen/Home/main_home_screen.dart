@@ -6,7 +6,7 @@ import 'package:mozaeapp/controller/Home/navigations_controller.dart';
 import 'package:mozaeapp/view/screen/Home/categories_screen.dart';
 import 'package:mozaeapp/view/screen/Home/customers_screen.dart';
 import 'package:mozaeapp/view/screen/Home/product_details_screen.dart';
-import 'package:mozaeapp/view/screen/Home/user_screen.dart';
+import 'package:mozaeapp/view/screen/Home/setting_screen.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -87,8 +87,8 @@ class Home extends StatelessWidget {
                   ),
 
                   GButton(
-                    icon: Icons.verified_user,
-                    text: 'قسم المستخدمين',
+                    icon: Icons.settings,
+                    text: 'الاعدادات',
                     textStyle: TextStyle(
                       fontFamily: "Cairo",
                       fontSize: 12,

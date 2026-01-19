@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:mozaeapp/view/widget/OnBoarding/custom_button_onborading.dart';
 
 class CustomeSbottomsheet extends StatelessWidget {
@@ -11,6 +10,8 @@ class CustomeSbottomsheet extends StatelessWidget {
     this.child4,
     this.child5,
     this.child6,
+    this.child7,
+
     required this.title,
     required this.textbutton,
     required this.onPressed,
@@ -25,6 +26,7 @@ class CustomeSbottomsheet extends StatelessWidget {
   final Widget? child4;
   final Widget? child5;
   final Widget? child6;
+  final Widget? child7;
 
   final String title;
   final String textbutton;
@@ -68,6 +70,7 @@ class CustomeSbottomsheet extends StatelessWidget {
             if (child1 != null) child1!,
             if (child2 != null) child2!,
             if (child3 != null) child3!,
+            if (child7 != null) child7!,
             if (child4 != null) child4!,
             if (child5 != null) child5!,
             if (child6 != null) child6!,

@@ -1,46 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mozaeapp/db/Repositories/category_repostari.dart';
+import 'package:mozaeapp/model/category_model.dart';
 
-abstract class CategoriesController extends GetxController {
-  late TextEditingController name;
-  late TextEditingController price;
-  }
-class CategoriesControllerImp extends CategoriesController{
+class CategoriesController extends GetxController {
+  var categories = <Category>[].obs;
+
+  final name = TextEditingController();
+  final price = TextEditingController();
+
+  final CategoryRepostari repo = CategoryRepostari();
   @override
-  void onInit() {
-    name = TextEditingController();
-    price = TextEditingController();
-    super.onInit();
+  void onReady() {
+    super.onReady();
+    fetchCategories();
   }
 
-  void save() {
-    // print("هشام هشام هشام");
-    if (name.text.isEmpty || price.text.isEmpty) {
-      Get.snackbar(
-        'تنبيه',
-        'يرجى إدخال جميع الحقول',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      return;
-    }
+  void fetchCategories() async {
+    // categories.value = await CategoryDBHelper.instance.getAll();
+    categories.value = await repo.getAll();
+  }
 
+  void addCategory() async {
+    final category = Category(
+      name: name.text,
+      price: double.tryParse(price.text) ?? 0.0,
+    );
+    await repo.insert(category);
+
+    fetchCategories();
+    clearFields();
     Get.back();
   }
 
-  @override
-  void onClose() {
-    name.dispose();
-    price.dispose();
-    super.onClose();
+  void updateCategory(Category category) async {
+    final updated = Category(
+      id: category.id,
+      name: name.text,
+      price: double.tryParse(price.text) ?? 0.0,
+    );
+    await repo.update(updated);
+
+    fetchCategories();
+    clearFields();
+    Get.back();
   }
 
-  @override
-  void onClear() {
+  void deleteCategory(int id) async {
+    await repo.delete(id);
+
+    fetchCategories();
+  }
+
+  void fillFields(Category category) {
+    name.text = category.name;
+    price.text = category.price.toString();
+  }
+
+  void clearFields() {
     name.clear();
     price.clear();
     super.onClose();
   }
-
 }
-  
-

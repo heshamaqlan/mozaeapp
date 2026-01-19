@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116470026196",
+    "project_id": "mozaeapp",
+    "storage_bucket": "mozaeapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116470026196:android:85a87b144ff0f76ad2d041",
+        "android_client_info": {
+          "package_name": "com.example.mozaeapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8ZGxc4o5-IyjoINNbPKuwsp_XrfsXDJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
