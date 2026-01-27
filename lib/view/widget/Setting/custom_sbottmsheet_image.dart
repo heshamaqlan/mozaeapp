@@ -27,6 +27,7 @@ class CustomeSbottomsheet extends StatelessWidget {
   // final String title;
   final String textlight;
   final String textdark;
+
   // final String textbutton1;
   // final String textbutton2;
   final bool isSelectedlight;

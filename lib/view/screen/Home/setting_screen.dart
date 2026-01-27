@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mozaeapp/content/appcolor.dart';
+import 'package:mozaeapp/controller/setting/settingcontroller.dart';
 import 'package:mozaeapp/controller/theme/theme_controller.dart';
-import 'package:mozaeapp/view/widget/Setting/custom_sbottmsheet.dart';
+import 'package:mozaeapp/view/screen/setting/Users/select_add_update_user.dart';
+import 'package:mozaeapp/view/widget/Setting/custom_sbottmsheet_image.dart';
 import 'package:mozaeapp/view/widget/Setting/custom_image_header.dart';
 import 'package:mozaeapp/view/widget/Setting/custom_line_setting.dart';
 
@@ -12,7 +14,8 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final controller = Get.put(AppearanceController());
-    final ThemeController controller = Get.find();
+    // final ThemeController controller = Get.find();
+    final SettingcontrollerImp controller = Get.put(SettingcontrollerImp());
     return Scaffold(
       backgroundColor: Appcolor.background,
       body: Column(
@@ -93,7 +96,7 @@ class UserScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              //Recycle
+              //recycle
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: InkWell(
@@ -113,21 +116,36 @@ class UserScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
               //information
+              // Directionality(
+              //   textDirection: TextDirection.rtl,
+              //   child: InkWell(
+              //     onTap: () {
+              //       Get.bottomSheet(
+              //         Text("hesham"),
+              //         isScrollControlled: true,
+              //         barrierColor: Appcolor.black.withOpacity(0.4),
+              //       );
+              //     },
+              //     borderRadius: BorderRadius.circular(16),
               Directionality(
                 textDirection: TextDirection.rtl,
-                child: InkWell(
+                child: CustomLineSetting(
+                  icon: Icon(Icons.info_outline_rounded),
+                  text: "معلومات التطبيق",
                   onTap: () {
-                    Get.bottomSheet(
-                      Text("hesham"),
-                      isScrollControlled: true,
-                      barrierColor: Appcolor.black.withOpacity(0.4),
-                    );
+                    controller.goToInformation();
                   },
-                  borderRadius: BorderRadius.circular(16),
-                  child: CustomLineSetting(
-                    icon: Icon(Icons.info_outline_rounded),
-                    text: "معلومات التطبيق",
-                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: CustomLineSetting(
+                  icon: Icon(Icons.info_outline_rounded),
+                  text: "المستخدمين",
+                  onTap: () {
+                    controller.goToSelectAddUpdatescreen();
+                  },
                 ),
               ),
             ],

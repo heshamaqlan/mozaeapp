@@ -21,7 +21,7 @@ class CustomersScreen extends StatelessWidget {
         child: Customappbar(text: "قســم العمـــلاء"),
       ),
 
-      /// زر الإضافة
+   
       floatingActionButton: FloatingActionButton(
         backgroundColor: Appcolor.basic,
         child: const Icon(Icons.add, color: Colors.white),
@@ -72,7 +72,7 @@ class CustomersScreen extends StatelessWidget {
         },
       ),
 
-      /// Body
+      // body
       body: Obx(
         () =>
             controller.customers.isEmpty

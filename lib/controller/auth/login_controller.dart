@@ -47,4 +47,19 @@ class LogincontrollerImp extends LoginController {
     password.dispose();
     super.dispose();
   }
+
+  @override
+  void save() {
+    print("save");
+  }
+
+  @override
+  void updatee() {
+    print("update");
+  }
+
+  @override
+  void delate() {
+    print("delate");
+  }
 }
