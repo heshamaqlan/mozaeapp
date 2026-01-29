@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
     CategoriesScreen(),
     ProductDetailsScreen(),
     CustomersScreen(),
-    UserScreen(),
+    SettingScreen (),
   ];
 
   @override

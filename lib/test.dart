@@ -30,7 +30,7 @@
 // //شاشة منفصله حول التطبيق
 
 import 'package:flutter/material.dart';
-import 'package:mozaeapp/db/core/services/fierbsse_services.dart';
+import 'package:mozaeapp/db/core/services/firebase_services.dart';
 import 'package:mozaeapp/view/screen/OnBoarding/Onboarding_screen.dart';
 
 class loginnn extends StatefulWidget {
@@ -67,7 +67,7 @@ class _loginnnState extends State<loginnn> {
           ElevatedButton(
             onPressed: () async {
               try {
-                await FierbsseServices.singIn(
+                await FirebaseServices.signIn(
                   emailController.text.trim(),
                   passwordController.text.trim(),
                 );

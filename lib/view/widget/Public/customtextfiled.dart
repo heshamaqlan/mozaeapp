@@ -89,7 +89,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mozaeapp/content/appcolor.dart';
 
-enum FieldType { text, number, decimal, phone, date, readonly }
+enum FieldType { text, number, decimal, phone, date, readonly , email }
 
 class Customtextfiled extends StatelessWidget {
   const Customtextfiled({

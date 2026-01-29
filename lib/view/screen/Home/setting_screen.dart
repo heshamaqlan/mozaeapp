@@ -8,8 +8,8 @@ import 'package:mozaeapp/view/widget/Setting/custom_sbottmsheet_image.dart';
 import 'package:mozaeapp/view/widget/Setting/custom_image_header.dart';
 import 'package:mozaeapp/view/widget/Setting/custom_line_setting.dart';
 
-class UserScreen extends StatelessWidget {
-  const UserScreen({super.key});
+class SettingScreen extends StatelessWidget {
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

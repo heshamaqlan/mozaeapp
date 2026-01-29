@@ -1,4 +1,4 @@
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -9,6 +9,7 @@ import 'package:mozaeapp/db/core/config/firebase_options.dart';
 import 'package:mozaeapp/route.dart';
 import 'package:mozaeapp/test.dart';
 import 'package:mozaeapp/view/screen/OnBoarding/Onboarding_screen.dart';
+import 'package:mozaeapp/view/screen/setting/Users/select_add_update_user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:mozaeapp/content/appcolor.dart';
 import 'package:mozaeapp/controller/auth/login_controller.dart';
 import 'package:mozaeapp/view/widget/Auth/custom_textfield.dart';
@@ -11,114 +10,118 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LogincontrollerImp controller = Get.put(LogincontrollerImp());
+    final LoginControllerImp controller = Get.put(LoginControllerImp());
+
     return Obx(
       () => Scaffold(
         backgroundColor: Appcolor.background,
-        body: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                // SizedBox(height: 50),
-                Image.asset(
-                  "assets/image/logo.png",
-                  width: 200,
-                  height: 250,
-                  // fit: BoxFit.cover,
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              // padding: EdgeInsets.all(10),
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Appcolor.basic.withOpacity(0.0),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Appcolor.basic.withOpacity(0.3),
-                  width: 1.5,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Appcolor.basic.withOpacity(0.2),
-                    spreadRadius: 5,
-                    blurRadius: 20,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  Text(
-                    "تسجيل دخول",
-                    style: TextStyle(
-                      color: Appcolor.basic,
-                      fontFamily: "Cairo",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                    ),
-                  ),
-                  CustomTextfield(
-                    suffixicon: Icon(Icons.person_2_rounded),
-                    colors: Appcolor(),
-                    hintText: "ادخل اســم المستخدم",
-                    lableText: "اســـم المستخدم",
-                    onChanged: (value) {
-                      print(value);
-                      print("هشام هشام هشام");
-                    },
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 80),
 
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
+              Image.asset(
+                "assets/image/logo.png",
+                width: 200,
+                height: 250,
+              ),
+
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Appcolor.basic.withOpacity(0.3),
+                    width: 1.5,
                   ),
-                  CustomTextfield(
-                    suffixicon: Icon(Icons.lock_clock_rounded),
-                    prefixicon: IconButton(
-                      onPressed: controller.togglePasswordVisibility,
-                      icon: Icon(
-                        controller.isPasswordHidden.value
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Appcolor.basic.withOpacity(0.2),
+                      blurRadius: 20,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "تسجيل دخول",
+                      style: TextStyle(
+                        color: Appcolor.basic,
+                        fontFamily: "Cairo",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
                       ),
                     ),
-                    colors: Appcolor(),
-                    hintText: "ادخل كلمة السر",
-                    lableText: "كلمـــة المـــرور",
-                    // onChanged: controller.
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الحقل مطلوب';
-                      }
-                      return null;
-                    },
-                    obscureText: controller.isPasswordHidden.value,
-                  ),
-                  SizedBox(height: 20),
-                  CustomButtonOnborading(
-                    text: "دخــــول",
-                    hight: 55,
-                    wigth: 180,
-                    onpressed: () {
-                      controller.goToHome();
-                    },
-                  ),
-                  SizedBox(height: 15),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 220),
-                    child: InkWell(
-                      onTap: () {
-                        controller.goToForgetPassword();
+
+                    /// Email
+                    CustomTextfield(
+                      controller: controller.email,
+                      hintText: "ادخل البريد الإلكتروني",
+                      lableText: "البريد الإلكتروني",
+                      suffixicon: const Icon(Icons.email),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'الحقل مطلوب';
+                        }
+                        if (!value.contains('@')) {
+                          return 'بريد إلكتروني غير صالح';
+                        }
+                        return null;
                       },
+                    ),
+
+                    /// Password
+                    CustomTextfield(
+                      controller: controller.password,
+                      hintText: "ادخل كلمة المرور",
+                      lableText: "كلمة المرور",
+                      suffixicon: const Icon(Icons.lock),
+                      prefixicon: IconButton(
+                        onPressed: controller.togglePasswordVisibility,
+                        icon: Icon(
+                          controller.isPasswordHidden.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                      ),
+                      obscureText: controller.isPasswordHidden.value,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'الحقل مطلوب';
+                        }
+                        if (value.length < 6) {
+                          return 'كلمة المرور قصيرة';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    /// Login Button
+                    CustomButtonOnborading(
+                      text:
+                          controller.isLoading.value
+                              ? "جارٍ الدخول..."
+                              : "دخــــول",
+                      hight: 55,
+                      wigth: 180,
+                      onpressed:
+                          controller.isLoading.value
+                              ? null
+                              : controller.login,
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    InkWell(
+                      onTap: controller.goToForgetPassword,
                       child: Text(
-                        "نسيت كلمة السر...؟",
+                        "نسيت كلمة السر؟",
                         style: TextStyle(
                           fontFamily: "Cairo",
                           fontSize: 15,
@@ -127,27 +130,11 @@ class Login extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 15),
-                ],
+                  ],
+                ),
               ),
-            ),
-            // SizedBox(height: 20),
-            // InkWell(
-            //   onTap: () {
-            //     controller.goToForgetPassword();
-            //   },
-            //   child: Text(
-            //     "نسيت كلمة السر...؟",
-            //     style: TextStyle(
-            //       fontFamily: "Cairo",
-            //       fontSize: 15,
-            //       color: Appcolor.black,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
-          ],
+            ],
+          ),
         ),
       ),
     );

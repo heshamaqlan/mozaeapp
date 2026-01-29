@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
-    // فقط هذا السطر القصير (بدون إصدار وبدون نقطتين)
+
     id("com.google.gms.google-services") 
 }
 

@@ -4,7 +4,6 @@ import 'package:mozaeapp/content/appcolor.dart';
 class CustomTextfield extends StatelessWidget {
   const CustomTextfield({
     super.key,
-    required this.colors,
     this.onChanged,
     required this.hintText,
     required this.lableText,
@@ -12,16 +11,17 @@ class CustomTextfield extends StatelessWidget {
     this.prefixicon,
     this.suffixicon,
     this.obscureText = false,
+    this.controller,
   });
 
-  final Appcolor colors;
   final void Function(String)? onChanged;
   final String lableText;
   final String hintText;
   final String? Function(String?)? validator;
   final IconButton? prefixicon;
   final Icon? suffixicon;
-  final bool? obscureText;
+  final bool obscureText;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -32,33 +32,30 @@ class CustomTextfield extends StatelessWidget {
         children: [
           Text(
             lableText,
-            style: TextStyle(
+            style: const TextStyle(
               color: Appcolor.black,
               fontWeight: FontWeight.bold,
               fontSize: 16,
               fontFamily: "Cairo",
             ),
           ),
-          
-          SizedBox(height: 12),
-
+          const SizedBox(height: 12),
           TextFormField(
+            controller: controller,
             textDirection: TextDirection.rtl,
             validator: validator,
-            obscureText: obscureText!,
+            obscureText: obscureText,
             decoration: InputDecoration(
-              // prefixIcon: prefixicon,
               prefixIcon: prefixicon,
               suffixIcon: suffixicon,
               filled: true,
               fillColor: Appcolor.background,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Appcolor.basic),
+                borderSide: const BorderSide(color: Appcolor.basic),
               ),
-
               hintText: hintText,
-              hintStyle: TextStyle(fontFamily: "Cairo"),
+              hintStyle: const TextStyle(fontFamily: "Cairo"),
               hintTextDirection: TextDirection.rtl,
             ),
             onChanged: onChanged,
