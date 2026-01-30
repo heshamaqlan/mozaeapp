@@ -18,7 +18,7 @@ class CustomersScreen extends StatelessWidget {
       /// AppBar
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
-        child: Customappbar(text: "قســم العمـــلاء"),
+        child: Customappbar(text: 'customers_section'.tr),
       ),
 
    
@@ -29,12 +29,12 @@ class CustomersScreen extends StatelessWidget {
           controller.clearFields();
           Get.bottomSheet(
             CustomeSbottomsheet(
-              title: "اضافــة عميـل",
+              title: 'add_customer'.tr,
 
               sizedBox1: const SizedBox(height: 10),
               child1: Customtextfiled(
                 controller: controller.name,
-                hintText: "اســـم العميل",
+                hintText: 'customer_name',
                 fieldType: FieldType.text,
                 suffixicon: const Icon(Icons.person_2_rounded),
               ),
@@ -42,7 +42,7 @@ class CustomersScreen extends StatelessWidget {
               sizedBox2: const SizedBox(height: 10),
               child2: Customtextfiled(
                 controller: controller.phone,
-                hintText: "رقـــم الهاتف",
+                hintText: 'phone_number',
                 fieldType: FieldType.phone,
                 suffixicon: const Icon(Icons.phone),
               ),
@@ -50,7 +50,7 @@ class CustomersScreen extends StatelessWidget {
               sizedBox3: const SizedBox(height: 10),
               child3: Customtextfiled(
                 controller: controller.address,
-                hintText: "العنــوان",
+                hintText: 'address',
                 fieldType: FieldType.text,
                 suffixicon: const Icon(Icons.location_city_rounded),
               ),
@@ -58,12 +58,12 @@ class CustomersScreen extends StatelessWidget {
               sizedBox4: const SizedBox(height: 10),
               child4: Customtextfiled(
                 controller: controller.note,
-                hintText: "ملاحظــــة",
+                hintText: 'note',
                 fieldType: FieldType.text,
                 suffixicon: const Icon(Icons.notes_rounded),
               ),
 
-              textbutton: "حفــــظ",
+              textbutton: 'save',
               onPressed: controller.addCustomer,
             ),
             isScrollControlled: true,
@@ -76,7 +76,7 @@ class CustomersScreen extends StatelessWidget {
       body: Obx(
         () =>
             controller.customers.isEmpty
-                ? const Center(child: Text("لا يوجد عملاء"))
+                ? Center(child: Text('no_customers'.tr))
                 : ListView.builder(
                   padding: const EdgeInsets.only(top: 20),
                   itemCount: controller.customers.length,
@@ -84,19 +84,21 @@ class CustomersScreen extends StatelessWidget {
                     final customer = controller.customers[index];
 
                     return Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: (Get.locale?.languageCode == 'ar')
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
                       child: InkWell(
                         onTap: () {
                           controller.fillFields(customer);
                           Get.bottomSheet(
                             CustomeSbottomsheet(
-                              title: "تعديـــل العميل",
+                              title: 'edit_customer'.tr,
 
                               sizedBox1: const SizedBox(height: 10),
                               child1: Customtextfiled(
                                 fieldType: FieldType.text,
                                 controller: controller.name,
-                                hintText: "اســـم العميل",
+                                hintText: 'customer_name',
                                 suffixicon: const Icon(Icons.person_2_rounded),
                               ),
 
@@ -104,7 +106,7 @@ class CustomersScreen extends StatelessWidget {
                               child2: Customtextfiled(
                                 fieldType: FieldType.phone,
                                 controller: controller.phone,
-                                hintText: "رقـــم الهاتف",
+                                hintText: 'phone_number',
                                 suffixicon: const Icon(Icons.phone),
                               ),
 
@@ -112,7 +114,7 @@ class CustomersScreen extends StatelessWidget {
                               child3: Customtextfiled(
                                 fieldType: FieldType.text,
                                 controller: controller.address,
-                                hintText: "العنــوان",
+                                hintText: 'address',
                                 suffixicon: const Icon(
                                   Icons.location_city_rounded,
                                 ),
@@ -122,11 +124,11 @@ class CustomersScreen extends StatelessWidget {
                               child4: Customtextfiled(
                                 fieldType: FieldType.text,
                                 controller: controller.note,
-                                hintText: "ملاحظــــة",
+                                hintText: 'note',
                                 suffixicon: const Icon(Icons.notes_rounded),
                               ),
 
-                              textbutton: "تعديـــل",
+                              textbutton: 'update',
                               onPressed:
                                   () => controller.updateCustomer(customer),
                             ),

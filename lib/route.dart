@@ -13,13 +13,13 @@ Map<String, Widget Function(BuildContext)> routes = {
   //home
   Approute.home: (context) => Home(),
 
-  //auth
-  Approute.login: (context) => const Login(),
-  // Approute.forgetPassword: (context) => const Forgetpassword(),
 
-  //user
+  Approute.login: (context) => const Login(),
+  Approute.forgetPassword: (context) => const Forgetpassword(),
+
+
   Approute.users: (context) => const AddSelectUpdateDeleteUsers(),
 
-  //abpoot
+
   Approute.about: (context) => const AboutScreen(),
 };

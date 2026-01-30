@@ -10,7 +10,7 @@ class AboutScreen extends StatelessWidget {
 
   void _launchWhatsApp() async {
     const String phone = "967777771369";
-    const String message = "السلام عليكم، أريد الاستفسار عن تطبيق موزع الذكي";
+    final String message = 'platform_desc'.tr;
     final Uri whatsappUri = Uri.parse(
       "https://wa.me/$phone?text=${Uri.encodeComponent(message)}",
     );
@@ -20,15 +20,15 @@ class AboutScreen extends StatelessWidget {
         await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
       } else {
         Get.snackbar(
-          "تنبيه",
-          "تعذر فتح واتساب، تأكد من تثبيت التطبيق",
+          'alert'.tr,
+          'whatsapp_open_failed'.tr,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Appcolor.basic.withOpacity(0.7),
           colorText: Appcolor.white,
         );
       }
     } catch (e) {
-      Get.snackbar("خطأ", "حدث خطأ غير متوقع");
+      Get.snackbar('error'.tr, 'unexpected_error'.tr);
     }
   }
 
@@ -37,9 +37,9 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Appcolor.background,
       appBar: AppBar(
-        title: const Text(
-          "حول التطبيق",
-          style: TextStyle(
+        title: Text(
+          'about_title'.tr,
+          style: const TextStyle(
             fontFamily: "Cairo",
             fontWeight: FontWeight.bold,
             color: Appcolor.white,
@@ -70,17 +70,17 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            const Text(
-              "موزع الذكي", //
-              style: TextStyle(
+            Text(
+              'app_name'.tr, //
+              style: const TextStyle(
                 fontFamily: "Cairo",
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-              "الإصدار 1.0.0", //
-              style: TextStyle(color: Colors.grey, fontFamily: "Cairo"),
+            Text(
+              'version'.tr, 
+              style: const TextStyle(color: Colors.grey, fontFamily: "Cairo"),
             ),
             const SizedBox(height: 30),
 
@@ -100,19 +100,21 @@ class AboutScreen extends StatelessWidget {
                   ],
                 ),
                 child: Directionality(
-                  textDirection: TextDirection.rtl,
+                  textDirection: (Get.locale?.languageCode == 'ar')
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
                   child: Column(
                     children: [
                       _buildInfoRow(
                         Icons.description,
-                        "عن المنصة",
-                        "الحل المتكامل لإدارة عمليات التوزيع، يربطك بعملائك بدقة، يتابع إيراداتك لحظة بلحظة، ويمنحك السيطرة الكاملة على خطوط السير في كل منطقة.",
+                        'about_platform'.tr,
+                        'platform_desc'.tr,
                       ),
                       const Divider(height: 30),
                       _buildInfoRow(
                         Icons.track_changes,
-                        "رؤيتنا",
-                        "تمكين الموزعين من تنظيم بياناتهم وتقليل الهدر المالي من خلال نظام تتبع جغرافي ومالي ذكي.",
+                        'our_vision'.tr,
+                        'vision_desc'.tr,
                       ),
                     ],
                   ),
@@ -122,9 +124,9 @@ class AboutScreen extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            const Text(
-              "تواصل معنا",
-              style: TextStyle(
+            Text(
+              'contact_us'.tr,
+              style: const TextStyle(
                 fontFamily: "Cairo",
                 fontWeight: FontWeight.bold,
               ),
@@ -136,13 +138,13 @@ class AboutScreen extends StatelessWidget {
               children: [
                 _buildSocialIcon(
                   FontAwesomeIcons.whatsapp,
-                  "واتساب",
+                  'whatsapp'.tr,
                   onTap: _launchWhatsApp,
                 ),
-                _buildSocialIcon(Icons.email, "الإيميل", onTap: () {}),
+                _buildSocialIcon(Icons.email, 'email'.tr, onTap: () {}),
                 _buildSocialIcon(
                   FontAwesomeIcons.github,
-                  "قت اب",
+                  'github'.tr,
                   onTap: () {},
                 ),
               ],

@@ -22,10 +22,9 @@ class ProductDetailsScreen extends StatelessWidget {
             /// AppBar
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(100),
-              child: Customappbar(text: "قســـم الطلبــات"),
+              child: Customappbar(text: 'orders_section'.tr),
             ),
 
-            /// شريط فلترة العملاء
             /// زر الإضافة
             floatingActionButton: FloatingActionButton(
               backgroundColor: Appcolor.basic,
@@ -34,12 +33,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 controller.onClear();
                 Get.bottomSheet(
                   CustomeSbottomsheet(
-                    title: controller.isEditing ? "تعديل طلب" : "اضافة طلب",
+                    title: controller.isEditing ? 'edit_order'.tr : 'add_order'.tr,
 
                     /// الصنف
                     sizedBox1: const SizedBox(height: 10),
                     child1: Customdropdown(
-                      hintText: "نوع الصنف",
+                      hintText: 'category_type',
                       prefixIcon: Icons.category,
                       value: controller.selectedCategory,
                       items: controller.categoriesNames,
@@ -49,10 +48,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     /// العميل
                     sizedBox2: const SizedBox(height: 10),
                     child2: Customdropdown(
-                      hintText: "اسم العميل",
+                      hintText: 'customer_name',
                       prefixIcon: Icons.person,
                       value: controller.selectedCustomer,
-
                       items: controller.customersNames,
                       onChanged: controller.onCustomerChanged,
                     ),
@@ -60,7 +58,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     /// عدد
                     child3: Customtextfiled(
                       controller: controller.quantity,
-                      hintText: "عدد الطلبات",
+                      hintText: 'orders_count',
                       suffixicon: const Icon(Icons.numbers),
                       fieldType: FieldType.number,
                       onChanged: controller.onQuantityChanged,
@@ -71,7 +69,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     /// تاريخ (غير قابل للتعديل)
                     child7: Customtextfiled(
                       controller: controller.orderDate,
-                      hintText: "تاريخ الطلب",
+                      hintText: 'order_date',
                       suffixicon: const Icon(Icons.date_range),
                       fieldType: FieldType.readonly,
                     ),
@@ -79,7 +77,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     /// المدفوع
                     child4: Customtextfiled(
                       controller: controller.paid,
-                      hintText: "المبلغ المدفوع",
+                      hintText: 'amount_paid',
                       fieldType: FieldType.decimal,
                       suffixicon: const Icon(Icons.price_change),
                       onChanged: controller.onPaidChanged,
@@ -88,7 +86,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     /// المتبقي
                     child5: Customtextfiled(
                       controller: controller.remaining,
-                      hintText: "المبلغ المتبقي",
+                      hintText: 'amount_remaining',
                       fieldType: FieldType.decimal,
                       suffixicon: const Icon(Icons.price_change),
                       // readOnly: true,
@@ -97,14 +95,14 @@ class ProductDetailsScreen extends StatelessWidget {
                     /// ملاحظة
                     child6: Customtextfiled(
                       controller: controller.note,
-                      hintText: "ملاحظــــة",
+                      hintText: 'note',
                       suffixicon: const Icon(Icons.notes),
                       fieldType: FieldType.readonly,
                     ),
 
                     /// حفظ
                     onPressed: controller.save,
-                    textbutton: controller.isEditing ? "تحديــــث" : "حفــــظ",
+                    textbutton: controller.isEditing ? 'update' : 'save',
                   ),
                   isScrollControlled: true,
                   barrierColor: Appcolor.black.withOpacity(0.4),
@@ -124,15 +122,14 @@ class ProductDetailsScreen extends StatelessWidget {
                       horizontal: 10,
                       vertical: 8,
                     ),
-
                     child: Row(
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: ChoiceChip(
-                            label: const Text(
-                              "الكل",
-                              style: TextStyle(
+                            label: Text(
+                              'all'.tr,
+                              style: const TextStyle(
                                 color: Appcolor.white,
                                 fontFamily: "Cairo",
                               ),
@@ -175,236 +172,283 @@ class ProductDetailsScreen extends StatelessWidget {
 
                 // القائمة
                 Expanded(
-                  child:
-                      controller.filteredOrders.isEmpty
-                          ? const Center(child: Text("لا توجد طلبات"))
-                          : ListView.builder(
-                            padding: const EdgeInsets.only(top: 20),
-                            itemCount: controller.filteredOrders.length,
-                            itemBuilder: (context, index) {
-                              final order = controller.filteredOrders[index];
+                  child: Obx(
+                    () =>
+                        controller.filteredOrders.isEmpty
+                            ? Center(child: Text('no_orders'.tr))
+                            : ListView.builder(
+                              padding: const EdgeInsets.only(
+                                top: 20,
+                                bottom: 80,
+                              ),
+                              itemCount: controller.filteredOrders.length,
+                              itemBuilder: (context, index) {
+                                final order = controller.filteredOrders[index];
 
-                              return Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Container(
-                                  height: 150,
-                                  width: double.infinity,
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 8,
-                                  ),
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: Appcolor.data,
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.25),
-                                        blurRadius: 8,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      // معلومات الطلب
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                return Directionality(
+                                  textDirection: (Get.locale?.languageCode == 'ar')
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
+                                  child: Container(
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 8,
+                                    ),
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: Appcolor.data,
+                                      borderRadius: BorderRadius.circular(16),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.25),
+                                          blurRadius: 8,
+                                          offset: const Offset(0, 4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        // معلومات الطلب
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '${'name'.tr}: ${order.customerName ?? 'unknown'.tr}',
+                                                style: TextStyle(
+                                                  color: Appcolor.black,
+                                                  fontFamily: "Cairo",
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                '${'category'.tr}: ${order.categoryName ?? 'unknown'.tr}',
+                                                style: TextStyle(
+                                                  color: Appcolor.black,
+                                                  fontFamily: "Cairo",
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                '${'quantity'.tr}: ${order.quantity}',
+                                                style: TextStyle(
+                                                  color: Appcolor.black,
+                                                  fontFamily: "Cairo",
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    '${'paid'.tr}: ${order.paid}',
+                                                    style: TextStyle(
+                                                      color: Appcolor.green,
+                                                      fontFamily: "Cairo",
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 16),
+                                                  Text(
+                                                    '${'remaining'.tr}: ${order.remaining}',
+                                                    style: TextStyle(
+                                                      color:
+                                                          order.remaining > 0
+                                                              ? Appcolor.red
+                                                              : Appcolor.black,
+                                                      fontFamily: "Cairo",
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+                                        // أزرار التحكم
+                                        Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            // Text(
-                                            //   "رقم الطلب: ${order.id}",
-                                            //   style: const TextStyle(
-                                            //     fontWeight: FontWeight.bold,
-                                            //   ),
-                                            // ),
-                                            const SizedBox(height: 6),
-                                            Text(
-                                              "الاسم: ${order.customerId}",
-                                              style: TextStyle(
-                                                color: Appcolor.black,
-                                                fontFamily: "Cairo",
+                                            // تعديل
+                                            IconButton(
+                                              icon: Icon(
+                                                Icons.edit,
+                                                color: Appcolor.basic,
                                               ),
+                                              onPressed: () {
+                                                controller.editOrder(order);
+                                                Get.bottomSheet(
+                                                  CustomeSbottomsheet(
+                                                    title: 'edit_order'.tr,
+                                                    sizedBox1: const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    child1: Customdropdown(
+                                                      hintText: 'category_type',
+                                                      prefixIcon:
+                                                          Icons.category,
+                                                      value:
+                                                          controller
+                                                              .selectedCategory,
+                                                      items:
+                                                          controller
+                                                              .categoriesNames,
+                                                      onChanged:
+                                                          controller
+                                                              .onCategoryChanged,
+                                                    ),
+                                                    sizedBox2: const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    child2: Customdropdown(
+                                                      hintText: 'customer_name',
+                                                      prefixIcon: Icons.person,
+                                                      value:
+                                                          controller
+                                                              .selectedCustomer,
+                                                      items:
+                                                          controller
+                                                              .customersNames,
+                                                      onChanged:
+                                                          controller
+                                                              .onCustomerChanged,
+                                                    ),
+                                                    child3: Customtextfiled(
+                                                      controller:
+                                                          controller.quantity,
+                                                      hintText: 'orders_count',
+                                                      fieldType:
+                                                          FieldType.number,
+                                                      suffixicon: const Icon(
+                                                        Icons.numbers,
+                                                      ),
+                                                      onChanged:
+                                                          controller
+                                                              .onQuantityChanged,
+                                                    ),
+                                                    sizedBox3: const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    child7: Customtextfiled(
+                                                      controller:
+                                                          controller.orderDate,
+                                                      hintText: 'order_date',
+                                                      fieldType:
+                                                          FieldType.readonly,
+                                                      suffixicon: const Icon(
+                                                        Icons.date_range,
+                                                      ),
+                                                    ),
+                                                    child4: Customtextfiled(
+                                                      controller:
+                                                          controller.paid,
+                                                      hintText:
+                                                          'amount_paid',
+                                                      fieldType:
+                                                          FieldType.decimal,
+                                                      suffixicon: const Icon(
+                                                        Icons.price_change,
+                                                      ),
+                                                      onChanged:
+                                                          controller
+                                                              .onPaidChanged,
+                                                    ),
+                                                    child5: Customtextfiled(
+                                                      controller:
+                                                          controller.remaining,
+                                                      hintText:
+                                                          'amount_remaining',
+                                                      fieldType:
+                                                          FieldType.readonly,
+                                                      suffixicon: const Icon(
+                                                        Icons.price_change,
+                                                      ),
+                                                    ),
+                                                    child6: Customtextfiled(
+                                                      controller:
+                                                          controller.note,
+                                                      hintText: 'note',
+                                                      suffixicon: const Icon(
+                                                        Icons.notes,
+                                                      ),
+                                                      fieldType: FieldType.text,
+                                                    ),
+                                                    onPressed: controller.save,
+                                                    textbutton: 'update',
+                                                  ),
+                                                  isScrollControlled: true,
+                                                  barrierColor: Appcolor.black
+                                                      .withOpacity(0.4),
+                                                );
+                                              },
                                             ),
-                                            Text(
-                                              "الصنف: ${order.categoryId}",
-                                              style: TextStyle(
-                                                color: Appcolor.black,
-                                                fontFamily: "Cairo",
+                                            // ===== أيقونة الطباعة الجديدة =====
+                                            IconButton(
+                                              icon: Icon(
+                                                Icons.print,
+                                                color:
+                                                    Appcolor
+                                                        .green, // لون مختلف للتمييز
                                               ),
+                                              onPressed: () {
+                                                controller.printOrder(
+                                                  order,
+                                                ); // استدعاء دالة الطباعة
+                                              },
                                             ),
 
-                                            Text(
-                                              "الكمية: ${order.quantity}",
-                                              style: TextStyle(
-                                                color: Appcolor.black,
-                                                fontFamily: "Cairo",
-                                              ),
-                                            ),
-                                            Text(
-                                              "المدفوع: ${order.paid}",
-                                              style: TextStyle(
-                                                color: Appcolor.black,
-                                                fontFamily: "Cairo",
-                                              ),
-                                            ),
-                                            Text(
-                                              "المتبقي: ${order.remaining}",
-                                              style: TextStyle(
-                                                color: Appcolor.black,
-                                                fontFamily: "Cairo",
-                                              ),
-                                            ),
+                                            // // حذف
+                                            // IconButton(
+                                            //   icon: Icon(
+                                            //     Icons.delete,
+                                            //     color: Appcolor.red,
+                                            //   ),
+                                            //   onPressed: () {
+                                            //     Get.defaultDialog(
+                                            //       title: "تأكيد الحذف",
+                                            //       titleStyle: const TextStyle(
+                                            //         fontFamily: "Cairo",
+                                            //         fontWeight: FontWeight.bold,
+                                            //       ),
+                                            //       middleText:
+                                            //           "هل أنت متأكد من حذف هذا الطلب؟",
+                                            //       middleTextStyle:
+                                            //           const TextStyle(
+                                            //             fontFamily: "Cairo",
+                                            //           ),
+                                            //       textConfirm: "حذف",
+                                            //       textCancel: "إلغاء",
+                                            //       cancelTextColor:
+                                            //           Appcolor.black,
+                                            //       confirmTextColor:
+                                            //           Colors.white,
+                                            //       buttonColor: Appcolor.basic,
+                                            //       onConfirm: () {
+                                            //         controller.deleteOrder(
+                                            //           order.id!,
+                                            //         );
+                                            //         Get.back();
+                                            //       },
+                                            //     );
+                                            //   },
+                                            // ),
                                           ],
                                         ),
-                                      ),
-
-                                      // أزرار التحكم
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          // تعديل
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.edit,
-                                              color: Appcolor.basic,
-                                            ),
-                                            onPressed: () {
-                                              controller.editOrder(order);
-                                              Get.bottomSheet(
-                                                CustomeSbottomsheet(
-                                                  title: "تعديل طلب",
-                                                  sizedBox1: const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  child1: Customdropdown(
-                                                    hintText: "نوع الصنف",
-                                                    prefixIcon: Icons.category,
-                                                    value:
-                                                        controller
-                                                            .selectedCategory,
-                                                    items:
-                                                        controller
-                                                            .categoriesNames,
-                                                    onChanged:
-                                                        controller
-                                                            .onCategoryChanged,
-                                                  ),
-                                                  sizedBox2: const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  child2: Customdropdown(
-                                                    hintText: "اسم العميل",
-                                                    prefixIcon: Icons.person,
-                                                    value:
-                                                        controller
-                                                            .selectedCustomer,
-                                                    items:
-                                                        controller
-                                                            .customersNames,
-                                                    onChanged:
-                                                        controller
-                                                            .onCustomerChanged,
-                                                  ),
-                                                  child3: Customtextfiled(
-                                                    controller:
-                                                        controller.quantity,
-                                                    hintText: "عدد الطلبات",
-                                                    fieldType: FieldType.number,
-                                                    suffixicon: const Icon(
-                                                      Icons.numbers,
-                                                    ),
-                                                    onChanged:
-                                                        controller
-                                                            .onQuantityChanged,
-                                                  ),
-                                                  sizedBox3: const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  child7: Customtextfiled(
-                                                    controller:
-                                                        controller.orderDate,
-                                                    hintText: "تاريخ الطلب",
-                                                    fieldType:
-                                                        FieldType.readonly,
-
-                                                    suffixicon: const Icon(
-                                                      Icons.date_range,
-                                                    ),
-                                                  ),
-                                                  child4: Customtextfiled(
-                                                    controller: controller.paid,
-                                                    hintText: "المبلغ المدفوع",
-                                                    fieldType:
-                                                        FieldType.decimal,
-                                                    suffixicon: const Icon(
-                                                      Icons.price_change,
-                                                    ),
-                                                    onChanged:
-                                                        controller
-                                                            .onPaidChanged,
-                                                  ),
-                                                  child5: Customtextfiled(
-                                                    controller:
-                                                        controller.remaining,
-                                                    hintText: "المبلغ المتبقي",
-                                                    fieldType:
-                                                        FieldType.readonly,
-                                                    suffixicon: const Icon(
-                                                      Icons.price_change,
-                                                    ),
-                                                  ),
-                                                  child6: Customtextfiled(
-                                                    controller: controller.note,
-                                                    hintText: "ملاحظــــة",
-                                                    suffixicon: const Icon(
-                                                      Icons.notes,
-                                                    ),
-                                                    fieldType: FieldType.text,
-                                                  ),
-                                                  onPressed: controller.save,
-                                                  textbutton: "تحديــــث",
-                                                ),
-                                                isScrollControlled: true,
-                                                barrierColor: Appcolor.black
-                                                    .withOpacity(0.4),
-                                              );
-                                            },
-                                          ),
-
-                                          // // حذف
-                                          // IconButton(
-                                          //   icon: Icon(
-                                          //     Icons.delete,
-                                          //     color: Colors.red,
-                                          //   ),
-                                          //   onPressed: () {
-                                          //     Get.defaultDialog(
-                                          //       title: "تأكيد الحذف",
-                                          //       middleText:
-                                          //           "هل أنت متأكد من حذف هذا الطلب؟",
-                                          //       textConfirm: "حذف",
-                                          //       textCancel: "إلغاء",
-                                          //       confirmTextColor: Colors.white,
-                                          //       onConfirm: () {
-                                          //         controller.deleteOrder(order.id!);
-                                          //         Get.back();
-                                          //       },
-                                          //     );
-                                          //   },
-                                          // ),
-                                        ],
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
+                                );
+                              },
+                            ),
+                  ),
                 ),
               ],
             ),

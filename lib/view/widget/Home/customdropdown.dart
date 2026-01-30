@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mozaeapp/content/appcolor.dart';
 // import 'package:mozaeapp/view/widget/OnBoarding/custom_button_onborading.dart'; // غير مستخدم
 
@@ -24,11 +25,14 @@ class Customdropdown extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection:
+            (Get.locale?.languageCode == 'ar') ? TextDirection.rtl : TextDirection.ltr,
         child: DropdownButtonFormField<String>(
           decoration: InputDecoration(
-            hintTextDirection: TextDirection.rtl,
-            hintText: hintText,
+            hintTextDirection: (Get.locale?.languageCode == 'ar')
+                ? TextDirection.rtl
+                : TextDirection.ltr,
+            hintText: hintText.tr,
             hintStyle: TextStyle(fontFamily: "Cairo"),
             prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
             contentPadding: const EdgeInsets.symmetric(
@@ -51,7 +55,7 @@ class Customdropdown extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      item,
+                      item.tr,
                       style: TextStyle(
                         fontFamily: "Cairo",
                         color: Appcolor.black,
@@ -63,7 +67,7 @@ class Customdropdown extends StatelessWidget {
                 );
               }).toList(),
           onChanged: onChanged,
-          // لتجنب الأخطاء عند تحديث القائمة
+          
           isExpanded: true,
         ),
       ),

@@ -17,7 +17,7 @@ class CategoriesController extends GetxController {
   }
 
   void fetchCategories() async {
-    // categories.value = await CategoryDBHelper.instance.getAll();
+  
     categories.value = await repo.getAll();
   }
 

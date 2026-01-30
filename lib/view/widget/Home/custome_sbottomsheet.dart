@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mozaeapp/view/widget/OnBoarding/custom_button_onborading.dart';
 
 class CustomeSbottomsheet extends StatelessWidget {
@@ -58,7 +59,7 @@ class CustomeSbottomsheet extends StatelessWidget {
             const SizedBox(height: 20),
 
             Text(
-              title,
+              title.tr,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,

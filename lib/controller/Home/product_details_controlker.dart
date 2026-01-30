@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mozaeapp/db/Repositories/category_repostari.dart';
 import 'package:mozaeapp/db/Repositories/customer_repository.dart';
@@ -6,6 +7,10 @@ import 'package:mozaeapp/db/Repositories/product_details_repository.dart';
 import 'package:mozaeapp/model/category_model.dart';
 import 'package:mozaeapp/model/customer_model.dart';
 import 'package:mozaeapp/model/product_details_model.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 abstract class ProductDetailsControlker extends GetxController {
   String? selectedCategory;
@@ -22,28 +27,22 @@ abstract class ProductDetailsControlker extends GetxController {
 }
 
 class ProductDetailsControlkerrImp extends ProductDetailsControlker {
-  /// Repositories
   final productRepo = ProductDetailsRepository();
   final categoryRepo = CategoryRepostari();
   final customerRepo = CustomerRepository();
 
-  /// Data
   var orders = <ProductDetails>[].obs;
   var categories = <Category>[];
   var customers = <Customer>[];
 
-  /// FK
   int? selectedCategoryId;
   int? selectedCustomerId;
 
-  /// Dropdown
   List<String> categoriesNames = [];
   List<String> customersNames = [];
 
-  /// السعر الأصلي للصنف
   double originalPrice = 0.0;
 
-  /// فلترة حسب العميل
   int? filterCustomerId;
   List<ProductDetails> get filteredOrders =>
       filterCustomerId == null
@@ -57,13 +56,12 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     paid = TextEditingController();
     remaining = TextEditingController();
     note = TextEditingController();
-    // تثبيت تاريخ اليوم وعدم السماح بتعديله للمضافات الجديدة
+
     orderDate.text = DateTime.now().toString().split(' ')[0];
     fetchInitialData();
     super.onInit();
   }
 
-  /// ===== تحميل البيانات =====
   Future<void> fetchInitialData() async {
     categories = await categoryRepo.getAll();
     customers = await customerRepo.getAll();
@@ -75,7 +73,6 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     update();
   }
 
-  /// ===== اختيار الصنف =====
   void onCategoryChanged(String? value) {
     selectedCategory = value;
     final category = categories.firstWhere((e) => e.name == value);
@@ -87,7 +84,6 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     update();
   }
 
-  /// ===== اختيار العميل =====
   void onCustomerChanged(String? value) {
     selectedCustomer = value;
     final customer = customers.firstWhere((e) => e.name == value);
@@ -95,13 +91,11 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     update();
   }
 
-  /// تغيير فلترة العميل في واجهة الطلبات
   void setCustomerFilter(int? customerId) {
     filterCustomerId = customerId;
     update();
   }
 
-  /// ===== الحساب الصحيح الوحيد =====
   void calculateRemaining() {
     final qty = int.tryParse(quantity.text) ?? 0;
     final paidValue = double.tryParse(paid.text) ?? 0.0;
@@ -122,7 +116,6 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     update();
   }
 
-  /// ===== Save =====
   void save() async {
     final qty = int.tryParse(quantity.text);
     final paidValue = double.tryParse(paid.text);
@@ -145,12 +138,13 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
       categoryId: selectedCategoryId!,
       customerId: selectedCustomerId!,
       quantity: qty,
-      // تاريخ اليوم دائماً للطلبات الجديدة
-      orderDate: isEditing
-          ? (orderDate.text.isEmpty
-              ? DateTime.now().toString().split(' ')[0]
-              : orderDate.text)
-          : DateTime.now().toString().split(' ')[0],
+
+      orderDate:
+          isEditing
+              ? (orderDate.text.isEmpty
+                  ? DateTime.now().toString().split(' ')[0]
+                  : orderDate.text)
+              : DateTime.now().toString().split(' ')[0],
       paid: paidValue,
       remaining: remainingValue,
       note: note.text,
@@ -173,7 +167,6 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     }
   }
 
-  /// ===== Edit =====
   void editOrder(ProductDetails order) {
     isEditing = true;
     editingOrder = order;
@@ -197,14 +190,12 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     update();
   }
 
-  /// ===== Delete =====
   void deleteOrder(int id) async {
     await productRepo.delete(id);
     orders.value = await productRepo.getAll();
     Get.snackbar("نجح", "تم حذف الطلب");
   }
 
-  /// ===== Clear =====
   void onClear() {
     quantity.clear();
     orderDate.text = DateTime.now().toString().split(' ')[0];
@@ -229,5 +220,110 @@ class ProductDetailsControlkerrImp extends ProductDetailsControlker {
     remaining.dispose();
     note.dispose();
     super.onClose();
+  }
+
+  Future<void> printOrder(ProductDetails order) async {
+    final fontData = await rootBundle.load(
+      "assets/font/Cairo/Cairo-Regular.ttf",
+    );
+    final ttf = pw.Font.ttf(fontData);
+    final boldFontData = await rootBundle.load(
+      "assets/font/Cairo/Cairo-Bold.ttf",
+    );
+    final boldTtf = pw.Font.ttf(boldFontData);
+
+    final pdf = pw.Document();
+
+    final category = categories.firstWhere((c) => c.id == order.categoryId);
+    final total = category.price * order.quantity;
+
+    pdf.addPage(
+      pw.Page(
+        theme: pw.ThemeData.withFont(base: ttf, bold: boldTtf),
+        pageFormat: PdfPageFormat.a5,
+        build: (pw.Context context) {
+          return pw.Directionality(
+            textDirection: pw.TextDirection.rtl,
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Center(
+                  child: pw.Text(
+                    "فاتورة طلب",
+                    style: pw.TextStyle(font: boldTtf, fontSize: 24),
+                  ),
+                ),
+                pw.SizedBox(height: 20),
+                pw.Text("تطبيق Mozae", style: pw.TextStyle(font: boldTtf)),
+                pw.Divider(),
+                pw.SizedBox(height: 20),
+
+                _buildInvoiceRow("رقم الطلب:", "${order.id}", boldTtf),
+                _buildInvoiceRow(
+                  "اسم العميل:",
+                  "${order.customerName}",
+                  boldTtf,
+                ),
+                _buildInvoiceRow("تاريخ الطلب:", order.orderDate, boldTtf),
+                pw.SizedBox(height: 15),
+
+                pw.Divider(),
+
+                _buildInvoiceRow("الصنف:", "${order.categoryName}", boldTtf),
+                _buildInvoiceRow("الكمية:", "${order.quantity}", boldTtf),
+                _buildInvoiceRow(
+                  "سعر الوحدة:",
+                  "${category.price.toStringAsFixed(2)}",
+                  boldTtf,
+                ),
+
+                pw.Divider(),
+                pw.SizedBox(height: 15),
+
+                _buildInvoiceRow(
+                  "الإجمالي:",
+                  total.toStringAsFixed(2),
+                  boldTtf,
+                ),
+                _buildInvoiceRow(
+                  "المبلغ المدفوع:",
+                  order.paid.toStringAsFixed(2),
+                  boldTtf,
+                ),
+                _buildInvoiceRow(
+                  "المبلغ المتبقي:",
+                  order.remaining.toStringAsFixed(2),
+                  boldTtf,
+                ),
+
+                pw.SizedBox(height: 20),
+                pw.Divider(),
+
+                pw.SizedBox(height: 10),
+                pw.Text("ملاحظات:", style: pw.TextStyle(font: boldTtf)),
+                pw.Text(order.note.isEmpty ? "لا توجد ملاحظات" : order.note),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => pdf.save(),
+    );
+  }
+
+  pw.Widget _buildInvoiceRow(String title, String value, pw.Font boldFont) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 4),
+      child: pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        children: [
+          pw.Text(title, style: pw.TextStyle(font: boldFont)),
+          pw.Text(value),
+        ],
+      ),
+    );
   }
 }

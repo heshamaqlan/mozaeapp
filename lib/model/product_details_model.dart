@@ -8,6 +8,10 @@ class ProductDetails {
   double remaining;
   String note;
 
+
+  String? categoryName;
+  String? customerName;
+
   ProductDetails({
     this.id,
     required this.categoryId,
@@ -17,6 +21,9 @@ class ProductDetails {
     required this.paid,
     required this.remaining,
     required this.note,
+   
+    this.categoryName,
+    this.customerName,
   });
 
   factory ProductDetails.fromJson(Map<String, dynamic> json) {
@@ -29,6 +36,9 @@ class ProductDetails {
       paid: json['paid'],
       remaining: json['remaining'],
       note: json['note'],
+      
+      categoryName: json['category_name'], 
+      customerName: json['customer_name'], 
     );
   }
 
@@ -43,5 +53,6 @@ class ProductDetails {
       'remaining': remaining,
       'note': note,
     };
+    
   }
 }

@@ -1,33 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class AppUser {
   final String uid;
   final String email;
-  final DateTime createdAt;
+  final String role; // user | admin
 
   AppUser({
     required this.uid,
     required this.email,
-    required this.createdAt,
+    required this.role,
   });
 
-  factory AppUser.fromJson(
-    Map<String, dynamic> json,
-    String docId,
-  ) {
+  factory AppUser.fromJson(Map<String, dynamic> json, String docId) {
     return AppUser(
-      uid: docId, // ✅ من documentId
+      uid: docId,
       email: json['email'] ?? '',
-
-      createdAt:
-          (json['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      role: json['role'] ?? 'user',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'email': email,
-      'createdAt': createdAt,
+      'role': role,
     };
   }
 }

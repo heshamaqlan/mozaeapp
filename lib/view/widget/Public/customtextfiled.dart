@@ -87,9 +87,10 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:mozaeapp/content/appcolor.dart';
 
-enum FieldType { text, number, decimal, phone, date, readonly , email }
+  enum FieldType { text, number, decimal, phone, date, readonly , email ,password}
 
 class Customtextfiled extends StatelessWidget {
   const Customtextfiled({
@@ -148,25 +149,25 @@ class Customtextfiled extends StatelessWidget {
       switch (fieldType) {
         case FieldType.text:
           if (RegExp(r'\d').hasMatch(value)) {
-            return "يرجى إدخال نص فقط";
+            return 'validator_text_only'.tr;
           }
           break;
 
         case FieldType.number:
           if (int.tryParse(value) == null) {
-            return "يرجى إدخال رقم صحيح فقط";
+            return 'validator_integer_only'.tr;
           }
           break;
 
         case FieldType.decimal:
           if (double.tryParse(value) == null) {
-            return "يرجى إدخال رقم عشري صحيح";
+            return 'validator_decimal_only'.tr;
           }
           break;
 
         case FieldType.phone:
           if (value.length < 9) {
-            return "رقم الهاتف غير صحيح";
+            return 'validator_phone_invalid'.tr;
           }
           break;
 
@@ -188,7 +189,9 @@ class Customtextfiled extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: TextFormField(
         controller: controller,
-        textDirection: TextDirection.rtl,
+        textDirection: (Get.locale?.languageCode == 'ar')
+            ? TextDirection.rtl
+            : TextDirection.ltr,
         keyboardType: _keyboardType,
         inputFormatters: _inputFormatters,
         validator: _validator,
@@ -207,7 +210,7 @@ class Customtextfiled extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(color: Appcolor.basic),
           ),
-          hintText: hintText,
+          hintText: hintText.tr,
           hintStyle: const TextStyle(fontFamily: "Cairo"),
         ),
       ),

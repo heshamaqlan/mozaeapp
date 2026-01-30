@@ -36,10 +36,10 @@ class CustomLineSetting extends StatelessWidget {
         ),
         child: Row(
           children: [
-            icon!,
+            if (icon != null) icon!,
             SizedBox(width: 10),
             Text(
-              text,
+              text.tr,
               style: TextStyle(
                 fontFamily: "Cairo",
                 fontSize: 18,

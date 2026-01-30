@@ -9,9 +9,20 @@ class ProductDetailsRepository {
     return await db.insert('product_details', details.toJson());
   }
 
+
   Future<List<ProductDetails>> getAll() async {
     final db = await dbHelper.database;
-    final result = await db.query('product_details');
+
+    final result = await db.rawQuery('''
+      SELECT 
+        pd.*, 
+        c.name as customer_name, 
+        cat.name as category_name
+      FROM product_details pd
+      JOIN customers c ON c.id = pd.customer_id
+      JOIN categories cat ON cat.id = pd.category_id
+      ORDER BY pd.id DESC
+    ''');
     return result.map((e) => ProductDetails.fromJson(e)).toList();
   }
 

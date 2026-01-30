@@ -48,7 +48,7 @@ class Login extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "تسجيل دخول",
+                      'login_title'.tr,
                       style: TextStyle(
                         color: Appcolor.basic,
                         fontFamily: "Cairo",
@@ -60,15 +60,15 @@ class Login extends StatelessWidget {
                     /// Email
                     CustomTextfield(
                       controller: controller.email,
-                      hintText: "ادخل البريد الإلكتروني",
-                      lableText: "البريد الإلكتروني",
+                      hintText: 'enter_email',
+                      lableText: 'email',
                       suffixicon: const Icon(Icons.email),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'الحقل مطلوب';
+                          return 'required_field'.tr;
                         }
                         if (!value.contains('@')) {
-                          return 'بريد إلكتروني غير صالح';
+                          return 'invalid_email'.tr;
                         }
                         return null;
                       },
@@ -77,8 +77,8 @@ class Login extends StatelessWidget {
                     /// Password
                     CustomTextfield(
                       controller: controller.password,
-                      hintText: "ادخل كلمة المرور",
-                      lableText: "كلمة المرور",
+                      hintText: 'enter_password',
+                      lableText: 'password',
                       suffixicon: const Icon(Icons.lock),
                       prefixicon: IconButton(
                         onPressed: controller.togglePasswordVisibility,
@@ -91,10 +91,10 @@ class Login extends StatelessWidget {
                       obscureText: controller.isPasswordHidden.value,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'الحقل مطلوب';
+                          return 'required_field'.tr;
                         }
                         if (value.length < 6) {
-                          return 'كلمة المرور قصيرة';
+                          return 'short_password'.tr;
                         }
                         return null;
                       },
@@ -104,10 +104,9 @@ class Login extends StatelessWidget {
 
                     /// Login Button
                     CustomButtonOnborading(
-                      text:
-                          controller.isLoading.value
-                              ? "جارٍ الدخول..."
-                              : "دخــــول",
+                      text: controller.isLoading.value
+                          ? 'logging_in'
+                          : 'login',
                       hight: 55,
                       wigth: 180,
                       onpressed:
@@ -121,7 +120,7 @@ class Login extends StatelessWidget {
                     InkWell(
                       onTap: controller.goToForgetPassword,
                       child: Text(
-                        "نسيت كلمة السر؟",
+                        'forgot_password'.tr,
                         style: TextStyle(
                           fontFamily: "Cairo",
                           fontSize: 15,

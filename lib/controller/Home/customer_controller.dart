@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class CustomerController extends GetxController {
   var customers = <Customer>[].obs;
 
-  // TextEditingControllers
+
   final name = TextEditingController();
   final phone = TextEditingController();
   final address = TextEditingController();

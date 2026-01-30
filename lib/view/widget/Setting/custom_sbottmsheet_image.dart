@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:mozaeapp/content/appcolor.dart';
-import 'package:mozaeapp/view/widget/OnBoarding/custom_button_onborading.dart';
 
 class CustomeSbottomsheet extends StatelessWidget {
   const CustomeSbottomsheet({
@@ -9,13 +7,6 @@ class CustomeSbottomsheet extends StatelessWidget {
     // required this.title,
     required this.textlight,
     required this.textdark,
-    // required this.textbutton1,
-    // required this.textbutton2,
-    // required this.onPressed,
-    // this.sizedBox1,
-    // this.sizedBox2,
-    // this.sizedBox3,
-    // this.sizedBox4,
     required this.imagespathlight,
     required this.imagespathdark,
     required this.isSelectedlight,
@@ -28,20 +19,14 @@ class CustomeSbottomsheet extends StatelessWidget {
   final String textlight;
   final String textdark;
 
-  // final String textbutton1;
-  // final String textbutton2;
   final bool isSelectedlight;
   final bool isSelecteddark;
   final String imagespathlight;
   final String imagespathdark;
-  // final void Function()? onPressed;
+
   final VoidCallback onTapdark;
   final VoidCallback onTaplight;
 
-  // final SizedBox? sizedBox1;
-  // final SizedBox? sizedBox2;
-  // final SizedBox? sizedBox3;
-  // final SizedBox? sizedBox4;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,18 +54,26 @@ class CustomeSbottomsheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                imagespathdark,
-                height: 300,
-                width: 140,
-                fit: BoxFit.fill,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  16,
+                ), // ✅ الحواف من الأربع جهات
+                child: Image.asset(
+                  imagespathdark,
+                  width: 140,
+                  height: 300,
+                  fit: BoxFit.fill,
+                ),
               ),
 
-              Image.asset(
-                imagespathlight,
-                height: 300,
-                width: 140,
-                fit: BoxFit.fill,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  imagespathlight,
+                  width: 140,
+                  height: 300,
+                  fit: BoxFit.fill,
+                ),
               ),
             ],
           ),
@@ -130,7 +123,7 @@ class CustomeSbottomsheet extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          // SizedBox(height: 20),
         ],
       ),
     );

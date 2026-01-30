@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mozaeapp/content/appcolor.dart';
 
 class CustomTextfield extends StatelessWidget {
@@ -31,7 +32,7 @@ class CustomTextfield extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            lableText,
+            lableText.tr,
             style: const TextStyle(
               color: Appcolor.black,
               fontWeight: FontWeight.bold,
@@ -42,7 +43,9 @@ class CustomTextfield extends StatelessWidget {
           const SizedBox(height: 12),
           TextFormField(
             controller: controller,
-            textDirection: TextDirection.rtl,
+            textDirection: (Get.locale?.languageCode == 'ar')
+                ? TextDirection.rtl
+                : TextDirection.ltr,
             validator: validator,
             obscureText: obscureText,
             decoration: InputDecoration(
@@ -54,9 +57,11 @@ class CustomTextfield extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(color: Appcolor.basic),
               ),
-              hintText: hintText,
+              hintText: hintText.tr,
               hintStyle: const TextStyle(fontFamily: "Cairo"),
-              hintTextDirection: TextDirection.rtl,
+              hintTextDirection: (Get.locale?.languageCode == 'ar')
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
             ),
             onChanged: onChanged,
           ),

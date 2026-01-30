@@ -17,7 +17,7 @@ class CategoriesScreen extends StatelessWidget {
 
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
-        child: Customappbar(text: "قسم الأصناف"),
+        child: Customappbar(text: 'categories_section'.tr),
       ),
 
       floatingActionButton: FloatingActionButton(
@@ -27,13 +27,13 @@ class CategoriesScreen extends StatelessWidget {
           controller.clearFields();
           Get.bottomSheet(
             CustomeSbottomsheet(
-              title: "اضافة صنف",
+              title: 'add_category'.tr,
 
               sizedBox1: const SizedBox(height: 10),
               child1: Customtextfiled(
                 fieldType: FieldType.text,
                 controller: controller.name,
-                hintText: "الصنف",
+                hintText: 'category',
                 suffixicon: const Icon(Icons.category_rounded),
               ),
 
@@ -41,12 +41,12 @@ class CategoriesScreen extends StatelessWidget {
               child2: Customtextfiled(
                 fieldType: FieldType.decimal,
                 controller: controller.price,
-                hintText: "السعر",
+                hintText: 'price',
                 suffixicon: const Icon(Icons.price_change),
               ),
 
               onPressed: controller.addCategory,
-              textbutton: "حفــــظ",
+              textbutton: 'save',
             ),
             isScrollControlled: true,
           );
@@ -56,7 +56,7 @@ class CategoriesScreen extends StatelessWidget {
       body: Obx(
         () =>
             controller.categories.isEmpty
-                ? const Center(child: Text("لا توجد أصناف"))
+                ? Center(child: Text('no_categories'.tr))
                 : ListView.builder(
                   padding: const EdgeInsets.only(top: 20),
                   itemCount: controller.categories.length,
@@ -64,19 +64,21 @@ class CategoriesScreen extends StatelessWidget {
                     final category = controller.categories[index];
 
                     return Directionality(
-                      textDirection: TextDirection.rtl,
+                      textDirection: (Get.locale?.languageCode == 'ar')
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
                       child: InkWell(
                         onTap: () {
                           controller.fillFields(category);
                           Get.bottomSheet(
                             CustomeSbottomsheet(
-                              title: "تعديل صنف",
+                              title: 'edit_category'.tr,
 
                               sizedBox1: const SizedBox(height: 10),
                               child1: Customtextfiled(
                                 controller: controller.name,
                                 fieldType: FieldType.text,
-                                hintText: "الصنف",
+                                hintText: 'category',
                                 suffixicon: const Icon(Icons.category_rounded),
                               ),
 
@@ -84,7 +86,7 @@ class CategoriesScreen extends StatelessWidget {
                               child2: Customtextfiled(
                                 fieldType: FieldType.decimal,
                                 controller: controller.price,
-                                hintText: "السعر",
+                                hintText: 'price',
                                 suffixicon: const Icon(
                                   Icons.price_change_rounded,
                                 ),
@@ -92,7 +94,7 @@ class CategoriesScreen extends StatelessWidget {
 
                               onPressed:
                                   () => controller.updateCategory(category),
-                              textbutton: "تعديـــل",
+                              textbutton: 'update',
                             ),
                             isScrollControlled: true,
                           );

@@ -56,10 +56,10 @@ class Home extends StatelessWidget {
                 activeColor: Appcolor.basic,
                 color: Colors.white,
 
-                tabs: const [
+                tabs: [
                   GButton(
                     icon: Icons.category,
-                    text: 'الاصناف',
+                    text: 'tabs_categories'.tr,
                     textStyle: TextStyle(
                       fontFamily: "Cairo",
                       fontSize: 12,
@@ -69,7 +69,7 @@ class Home extends StatelessWidget {
                   ),
                   GButton(
                     icon: Icons.info_outline,
-                    text: 'تفاصيل الصنف',
+                    text: 'tabs_product_details'.tr,
                     textStyle: TextStyle(
                       fontFamily: "Cairo",
                       fontSize: 12,
@@ -78,7 +78,7 @@ class Home extends StatelessWidget {
                   ),
                   GButton(
                     icon: Icons.people,
-                    text: 'الزبائن',
+                    text: 'tabs_customers'.tr,
                     textStyle: TextStyle(
                       fontFamily: "Cairo",
                       fontSize: 12,
@@ -88,7 +88,7 @@ class Home extends StatelessWidget {
 
                   GButton(
                     icon: Icons.settings,
-                    text: 'الاعدادات',
+                    text: 'tabs_settings'.tr,
                     textStyle: TextStyle(
                       fontFamily: "Cairo",
                       fontSize: 12,

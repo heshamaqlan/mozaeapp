@@ -29,7 +29,7 @@ class OnboardingScreen extends StatelessWidget {
                     onpressed: () {
                        controller.next();
                     },
-                    text: "استمــرار",
+                    text: 'continue',
                     wigth: 220,
                     hight: 55,
                   ),

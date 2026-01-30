@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mozaeapp/content/appcolor.dart';
 import 'package:mozaeapp/controller/setting/users_controller.dart';
+import 'package:mozaeapp/view/widget/Home/customdropdown.dart';
 import 'package:mozaeapp/view/widget/Home/custome_sbottomsheet.dart';
 import 'package:mozaeapp/view/widget/Public/customappbar.dart';
 import 'package:mozaeapp/view/widget/Public/customtextfiled.dart';
@@ -18,9 +19,9 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
             backgroundColor: Appcolor.background,
 
             /// AppBar
-            appBar: const PreferredSize(
+            appBar: PreferredSize(
               preferredSize: Size.fromHeight(100),
-              child: Customappbar(text: "قسم المستخدمين"),
+              child: Customappbar(text: 'users_management'.tr),
             ),
 
             /// زر الإضافة
@@ -41,7 +42,7 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
             body: Obx(
               () =>
                   controller.users.isEmpty
-                      ? const Center(child: Text("لا يوجد مستخدمون"))
+                      ? Center(child: Text('no_users'.tr))
                       : ListView.builder(
                         padding: const EdgeInsets.only(top: 20),
                         itemCount: controller.users.length,
@@ -49,9 +50,12 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
                           final user = controller.users[index];
 
                           return Directionality(
-                            textDirection: TextDirection.rtl,
+                            textDirection:
+                                (Get.locale?.languageCode == 'ar')
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
                             child: Container(
-                              height: 150,
+                              height: 160,
                               width: double.infinity,
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 10,
@@ -87,7 +91,14 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
                                             fontFamily: "Cairo",
                                           ),
                                         ),
-                                        const SizedBox(height: 6),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          '${'role'.tr}: ${user.role}',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: "Cairo",
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -120,16 +131,30 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
                                       IconButton(
                                         icon: const Icon(
                                           Icons.delete,
-                                          color: Colors.red,
+                                          color: Appcolor.red,
                                         ),
                                         onPressed: () {
                                           Get.defaultDialog(
-                                            title: "تأكيد الحذف",
+                                            backgroundColor:
+                                                Appcolor.background,
+                                            title: 'confirm_delete'.tr,
+                                            titleStyle: const TextStyle(
+                                              fontFamily: "Cairo",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                             middleText:
-                                                "هل أنت متأكد من حذف هذا المستخدم؟",
-                                            textConfirm: "حذف",
-                                            textCancel: "إلغاء",
-                                            confirmTextColor: Colors.white,
+                                                'confirm_delete_user'.tr,
+                                            middleTextStyle: const TextStyle(
+                                              fontFamily: "Cairo",
+                                              fontSize: 14,
+                                            ),
+                                            textConfirm: 'delete'.tr,
+                                            textCancel: 'cancel'.tr,
+                                            confirmTextColor: Appcolor.white,
+                                            cancelTextColor: Appcolor.black,
+                                            buttonColor: Appcolor.basic,
+
                                             onConfirm: () {
                                               controller.deleteUser(user.uid);
                                               Get.back();
@@ -150,35 +175,56 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
     );
   }
 
+  /// BottomSheet الإضافة / التعديل
   Widget _userBottomSheet({
     required UsersController controller,
     required bool isEdit,
   }) {
     return CustomeSbottomsheet(
-      title: isEdit ? "تعديل مستخدم" : "إضافة مستخدم",
+      title: isEdit ? 'edit_user'.tr : 'add_user'.tr,
 
-      /// الإيميل
-      child1: Customtextfiled(
-        fieldType: FieldType.email,
-        controller: controller.email,
-        hintText: "البريد الإلكتروني",
-        suffixicon: const Icon(Icons.email),
+      /// الصلاحية (أولًا)
+      child1: Obx(
+        () => Customdropdown(
+          hintText: 'role',
+          value: controller.role.value,
+          items: const ['user', 'admin'],
+          prefixIcon: Icons.admin_panel_settings,
+          onChanged: (value) {
+            if (value != null) {
+              controller.role.value = value;
+            }
+          },
+        ),
       ),
 
-      /// كلمة المرور (تظهر فقط عند الإضافة)
-      child2:
-          isEdit
-              ? null
-              : Customtextfiled(
-                fieldType: FieldType.text,
-                controller: controller.password,
-                hintText: "كلمة المرور",
-                suffixicon: const Icon(Icons.lock),
-              ),
+      /// الإيميل (ثانيًا)
+      child2: Column(
+        children: [
+          Customtextfiled(
+            fieldType: FieldType.email,
+            controller: controller.email,
+            hintText: 'email',
+            suffixicon: const Icon(Icons.email),
+          ),
+
+          // const SizedBox(height: 10),
+
+          /// كلمة المرور (فقط عند الإضافة)
+          if (!isEdit)
+            Customtextfiled(
+              fieldType: FieldType.password,
+              controller: controller.password,
+              hintText: 'password',
+              suffixicon: const Icon(Icons.lock),
+            ),
+          const SizedBox(height: 10),
+        ],
+      ),
 
       /// زر الحفظ
       onPressed: isEdit ? controller.updateUser : controller.addUser,
-      textbutton: isEdit ? "تحديــــث" : "حفــــظ",
+      textbutton: isEdit ? 'update' : 'save',
     );
   }
 }

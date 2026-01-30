@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mozaeapp/content/appcolor.dart';
 
 class CustomButtonOnborading extends StatelessWidget {
@@ -27,7 +28,7 @@ class CustomButtonOnborading extends StatelessWidget {
       height: hight,
       minWidth: wigth,
       child: Text(
-        text,
+        text.tr,
         style: const TextStyle(
           fontFamily: "Cairo",
           fontSize: 18,
