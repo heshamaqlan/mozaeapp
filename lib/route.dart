@@ -8,18 +8,19 @@ import 'package:mozaeapp/view/screen/setting/Users/select_add_update_user.dart';
 import 'package:mozaeapp/view/screen/setting/infomation/aboutscreen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
-  //onBoarding
+  //welcom
   Approute.onBoarding: (context) => const OnboardingScreen(),
+
   //home
   Approute.home: (context) => Home(),
 
-
+  //auth
   Approute.login: (context) => const Login(),
   Approute.forgetPassword: (context) => const Forgetpassword(),
 
-
+  //user
   Approute.users: (context) => const AddSelectUpdateDeleteUsers(),
 
-
+  //about
   Approute.about: (context) => const AboutScreen(),
 };

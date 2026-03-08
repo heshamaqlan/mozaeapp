@@ -18,13 +18,13 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
           (controller) => Scaffold(
             backgroundColor: Appcolor.background,
 
-            /// AppBar
+        
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(100),
               child: Customappbar(text: 'users_management'.tr),
             ),
 
-            /// زر الإضافة
+           
             floatingActionButton: FloatingActionButton(
               backgroundColor: Appcolor.basic,
               child: const Icon(Icons.add, color: Colors.white),
@@ -38,7 +38,7 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
               },
             ),
 
-            /// Body
+           
             body: Obx(
               () =>
                   controller.users.isEmpty
@@ -75,7 +75,7 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
                               ),
                               child: Row(
                                 children: [
-                                  /// معلومات المستخدم
+                                 
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -103,11 +103,11 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
                                     ),
                                   ),
 
-                                  /// أزرار التحكم
+                       
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      /// تعديل
+                                  
                                       IconButton(
                                         icon: Icon(
                                           Icons.edit,
@@ -127,7 +127,7 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
                                         },
                                       ),
 
-                                      /// حذف
+                                 
                                       IconButton(
                                         icon: const Icon(
                                           Icons.delete,
@@ -175,7 +175,7 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
     );
   }
 
-  /// BottomSheet الإضافة / التعديل
+
   Widget _userBottomSheet({
     required UsersController controller,
     required bool isEdit,
@@ -183,7 +183,6 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
     return CustomeSbottomsheet(
       title: isEdit ? 'edit_user'.tr : 'add_user'.tr,
 
-      /// الصلاحية (أولًا)
       child1: Obx(
         () => Customdropdown(
           hintText: 'role',
@@ -198,7 +197,6 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
         ),
       ),
 
-      /// الإيميل (ثانيًا)
       child2: Column(
         children: [
           Customtextfiled(
@@ -210,7 +208,7 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
 
           // const SizedBox(height: 10),
 
-          /// كلمة المرور (فقط عند الإضافة)
+    
           if (!isEdit)
             Customtextfiled(
               fieldType: FieldType.password,
@@ -222,7 +220,7 @@ class AddSelectUpdateDeleteUsers extends StatelessWidget {
         ],
       ),
 
-      /// زر الحفظ
+   
       onPressed: isEdit ? controller.updateUser : controller.addUser,
       textbutton: isEdit ? 'update' : 'save',
     );

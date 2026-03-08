@@ -14,7 +14,7 @@ class CustomButtonOnborading extends StatelessWidget {
   final String text;
   final double hight;
   final double wigth;
-  final VoidCallback? onpressed; // لاحظ ? هنا
+  final VoidCallback? onpressed; 
 
   @override
   Widget build(BuildContext context) {

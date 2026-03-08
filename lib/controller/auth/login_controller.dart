@@ -44,7 +44,6 @@ Future<void> login() async {
       password: passwordText,
     );
 
-    // نجاح
     Get.offAllNamed(Approute.home);
   } on FirebaseAuthException catch (e) {
     String message = "حدث خطأ";

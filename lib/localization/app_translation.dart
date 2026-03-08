@@ -4,7 +4,7 @@ class AppTranslation extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en': {
-          // Common
+       
           'appearance': 'Appearance',
           'dark': 'Dark',
           'light': 'Light',
@@ -15,17 +15,17 @@ class AppTranslation extends Translations {
           'about_app': 'About App',
           'users': 'Users',
 
-          // Screens (examples, extend as needed)
+      
           'onboarding': 'Onboarding',
           'login': 'Login',
           'home': 'Home',
 
-          // Actions
+   
           'continue': 'Continue',
           'save': 'Save',
           'update': 'Update',
 
-          // Auth
+     
           'login_title': 'Sign In',
           'email': 'Email',
           'enter_email': 'Enter your email',
@@ -37,7 +37,7 @@ class AppTranslation extends Translations {
           'invalid_email': 'Invalid email address',
           'short_password': 'Password is too short',
 
-          // Home - Common
+        
           'all': 'All',
           'no_orders': 'No orders',
           'no_customers': 'No customers',
@@ -50,12 +50,12 @@ class AppTranslation extends Translations {
           'remaining': 'Remaining',
           'note': 'Note',
 
-          // Sections
+       
           'orders_section': 'Orders',
           'customers_section': 'Customers',
           'categories_section': 'Categories',
 
-          // Orders sheet
+      
           'edit_order': 'Edit Order',
           'add_order': 'Add Order',
           'category_type': 'Category type',
@@ -65,31 +65,31 @@ class AppTranslation extends Translations {
           'amount_paid': 'Amount paid',
           'amount_remaining': 'Amount remaining',
 
-          // Customers sheet
+
           'add_customer': 'Add Customer',
           'edit_customer': 'Edit Customer',
           'phone_number': 'Phone number',
           'address': 'Address',
 
-          // Categories sheet
+     
           'add_category': 'Add Category',
           'edit_category': 'Edit Category',
           'category': 'Category',
           'price': 'Price',
 
-          // Bottom tabs
+          
           'tabs_categories': 'Categories',
           'tabs_product_details': 'Orders',
           'tabs_customers': 'Customers',
           'tabs_settings': 'Settings',
 
-          // Validators (public textfield)
+    
           'validator_text_only': 'Please enter text only',
           'validator_integer_only': 'Please enter a valid integer',
           'validator_decimal_only': 'Please enter a valid decimal number',
           'validator_phone_invalid': 'Invalid phone number',
 
-          // About screen
+ 
           'about_title': 'About App',
           'app_name': 'Smart Distributor',
           'version': 'Version 1.0.0',
@@ -108,7 +108,7 @@ class AppTranslation extends Translations {
           'error': 'Error',
           'unexpected_error': 'An unexpected error occurred',
 
-          // Users management
+    
           'users_management': 'Users Management',
           'no_users': 'No users',
           'role': 'Role',
@@ -122,7 +122,7 @@ class AppTranslation extends Translations {
           'admin': 'Admin',
         },
         'ar': {
-          // Common
+      
           'appearance': 'المظهر',
           'dark': 'ليلي',
           'light': 'نهار',
@@ -133,17 +133,15 @@ class AppTranslation extends Translations {
           'about_app': 'حول التطبيق',
           'users': 'المستخدمين',
 
-          // Screens (examples)
           'onboarding': 'شاشة البداية',
           'login': 'تسجيل الدخول',
           'home': 'الرئيسية',
 
-          // Actions
           'continue': 'استمرار',
           'save': 'حفظ',
           'update': 'تحديث',
 
-          // Auth
+    
           'login_title': 'تسجيل دخول',
           'email': 'البريد الإلكتروني',
           'enter_email': 'ادخل البريد الإلكتروني',
@@ -155,7 +153,7 @@ class AppTranslation extends Translations {
           'invalid_email': 'بريد إلكتروني غير صالح',
           'short_password': 'كلمة المرور قصيرة',
 
-          // Home - Common
+        
           'all': 'الكل',
           'no_orders': 'لا توجد طلبات',
           'no_customers': 'لا يوجد عملاء',
@@ -168,12 +166,12 @@ class AppTranslation extends Translations {
           'remaining': 'المتبقي',
           'note': 'ملاحظة',
 
-          // Sections
+          
           'orders_section': 'قسم الطلبات',
           'customers_section': 'قسم العملاء',
           'categories_section': 'قسم الأصناف',
 
-          // Orders sheet
+     
           'edit_order': 'تعديل طلب',
           'add_order': 'إضافة طلب',
           'category_type': 'نوع الصنف',
@@ -183,31 +181,31 @@ class AppTranslation extends Translations {
           'amount_paid': 'المبلغ المدفوع',
           'amount_remaining': 'المبلغ المتبقي',
 
-          // Customers sheet
+       
           'add_customer': 'إضافة عميل',
           'edit_customer': 'تعديل العميل',
           'phone_number': 'رقم الهاتف',
           'address': 'العنوان',
 
-          // Categories sheet
+       
           'add_category': 'إضافة صنف',
           'edit_category': 'تعديل صنف',
           'category': 'الصنف',
           'price': 'السعر',
 
-          // Bottom tabs
+       
           'tabs_categories': 'الأصناف',
           'tabs_product_details': 'الطلبات',
           'tabs_customers': 'العملاء',
           'tabs_settings': 'الإعدادات',
 
-          // Validators (public textfield)
+  
           'validator_text_only': 'يرجى إدخال نص فقط',
           'validator_integer_only': 'يرجى إدخال رقم صحيح فقط',
           'validator_decimal_only': 'يرجى إدخال رقم عشري صحيح',
           'validator_phone_invalid': 'رقم الهاتف غير صحيح',
 
-          // About screen
+        
           'about_title': 'حول التطبيق',
           'app_name': 'موزع الذكي',
           'version': 'الإصدار 1.0.0',
@@ -226,7 +224,7 @@ class AppTranslation extends Translations {
           'error': 'خطأ',
           'unexpected_error': 'حدث خطأ غير متوقع',
 
-          // Users management
+     
           'users_management': 'إدارة المستخدمين',
           'no_users': 'لا يوجد مستخدمون',
           'role': 'الصلاحية',

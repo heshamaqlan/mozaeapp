@@ -32,13 +32,13 @@ class SettingScreen extends StatelessWidget {
 
           return Column(
             children: [
-              /// Header
+              
               CustomImageHeader(),
               const SizedBox(height: 40),
 
               Column(
                 children: [
-                  /// المظهر
+                
                   Directionality(
                     textDirection: (Get.locale?.languageCode == 'ar')
                         ? TextDirection.rtl
@@ -70,7 +70,7 @@ class SettingScreen extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  /// اللغة
+                 
                   Directionality(
                     textDirection: (Get.locale?.languageCode == 'ar')
                         ? TextDirection.rtl
@@ -84,7 +84,7 @@ class SettingScreen extends StatelessWidget {
                             isSelecteddark: Get.locale?.languageCode == 'ar',
                             onTapdark: () {
                               Get.updateLocale(const Locale('ar'));
-                              // persist
+                          
                               LocalizationService.saveLocale(const Locale('ar'));
                               Get.back();
                             },
@@ -93,7 +93,7 @@ class SettingScreen extends StatelessWidget {
                             isSelectedlight: Get.locale?.languageCode == 'en',
                             onTaplight: () {
                               Get.updateLocale(const Locale('en'));
-                              // persist
+                         
                               LocalizationService.saveLocale(const Locale('en'));
                               Get.back();
                             },

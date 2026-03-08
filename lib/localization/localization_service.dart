@@ -9,7 +9,7 @@ class LocalizationService {
     final code = _box.read<String>(_key);
     if (code == 'ar') return const Locale('ar');
     if (code == 'en') return const Locale('en');
-    // Default to Arabic if no locale is saved
+   
     return const Locale('ar');
   }
 

@@ -16,7 +16,7 @@ class OnBoardingContrllerImp extends OnboardingController {
     currentPage++;
     if (currentPage + 1 > onbordinglist.length) {
       Get.offNamed(Approute.login);
-      // print("hesham");
+      // print("هشام هشام هشام");
     } else {
       pageController.animateToPage(
         currentPage,

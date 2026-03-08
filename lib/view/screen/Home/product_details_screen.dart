@@ -19,13 +19,13 @@ class ProductDetailsScreen extends StatelessWidget {
           (controller) => Scaffold(
             backgroundColor: Appcolor.background,
 
-            /// AppBar
+            
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(100),
               child: Customappbar(text: 'orders_section'.tr),
             ),
 
-            /// زر الإضافة
+            // زر الإضافة
             floatingActionButton: FloatingActionButton(
               backgroundColor: Appcolor.basic,
               child: const Icon(Icons.add, color: Colors.white),
@@ -35,7 +35,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   CustomeSbottomsheet(
                     title: controller.isEditing ? 'edit_order'.tr : 'add_order'.tr,
 
-                    /// الصنف
+                    // الصنف
                     sizedBox1: const SizedBox(height: 10),
                     child1: Customdropdown(
                       hintText: 'category_type',
@@ -45,7 +45,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       onChanged: controller.onCategoryChanged,
                     ),
 
-                    /// العميل
+                    // العميل
                     sizedBox2: const SizedBox(height: 10),
                     child2: Customdropdown(
                       hintText: 'customer_name',
@@ -55,7 +55,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       onChanged: controller.onCustomerChanged,
                     ),
 
-                    /// عدد
+                    // عدد
                     child3: Customtextfiled(
                       controller: controller.quantity,
                       hintText: 'orders_count',
@@ -66,7 +66,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
                     sizedBox3: const SizedBox(height: 10),
 
-                    /// تاريخ (غير قابل للتعديل)
+                    // تاريخ غير قابل للتعديل
                     child7: Customtextfiled(
                       controller: controller.orderDate,
                       hintText: 'order_date',
@@ -74,7 +74,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       fieldType: FieldType.readonly,
                     ),
 
-                    /// المدفوع
+                    // المدفوع
                     child4: Customtextfiled(
                       controller: controller.paid,
                       hintText: 'amount_paid',
@@ -83,7 +83,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       onChanged: controller.onPaidChanged,
                     ),
 
-                    /// المتبقي
+                    // المتبقي
                     child5: Customtextfiled(
                       controller: controller.remaining,
                       hintText: 'amount_remaining',
@@ -92,7 +92,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       // readOnly: true,
                     ),
 
-                    /// ملاحظة
+                    // ملاحظة
                     child6: Customtextfiled(
                       controller: controller.note,
                       hintText: 'note',
@@ -100,7 +100,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       fieldType: FieldType.readonly,
                     ),
 
-                    /// حفظ
+                    // حفظ
                     onPressed: controller.save,
                     textbutton: controller.isEditing ? 'update' : 'save',
                   ),
@@ -110,10 +110,10 @@ class ProductDetailsScreen extends StatelessWidget {
               },
             ),
 
-            /// Body مع فلترة العملاء في الأعلى
+         
             body: Column(
               children: [
-                // شريط الفلترة بالأسماء (الكل + العملاء)
+              
                 SizedBox(
                   height: 56,
                   child: SingleChildScrollView(
@@ -272,7 +272,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                           ),
                                         ),
 
-                                        // أزرار التحكم
+                                     
                                         Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -390,18 +390,18 @@ class ProductDetailsScreen extends StatelessWidget {
                                                 );
                                               },
                                             ),
-                                            // ===== أيقونة الطباعة الجديدة =====
+                                         
                                             IconButton(
                                               icon: Icon(
                                                 Icons.print,
                                                 color:
                                                     Appcolor
-                                                        .green, // لون مختلف للتمييز
+                                                        .green, 
                                               ),
                                               onPressed: () {
                                                 controller.printOrder(
                                                   order,
-                                                ); // استدعاء دالة الطباعة
+                                                ); 
                                               },
                                             ),
 

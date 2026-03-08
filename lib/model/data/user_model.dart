@@ -1,7 +1,7 @@
 class AppUser {
   final String uid;
   final String email;
-  final String role; // user | admin
+  final String role; 
 
   AppUser({
     required this.uid,

@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // Localization configuration
+
       translations: AppTranslation(),
-      // Use device locale if supported; fallback to English
+
       locale: LocalizationService.getLocale(),
       fallbackLocale: const Locale('en'),
       supportedLocales: const [Locale('en'), Locale('ar')],

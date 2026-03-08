@@ -110,7 +110,7 @@ class Customtextfiled extends StatelessWidget {
   final void Function(String)? onChanged;
   final VoidCallback? onTap;
 
-  /// ===== إعدادات حسب النوع =====
+
   TextInputType get _keyboardType {
     switch (fieldType) {
       case FieldType.number:

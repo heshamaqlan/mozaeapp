@@ -6,14 +6,14 @@ import 'package:mozaeapp/model/data/user_model.dart';
 class UsersController extends GetxController {
   final FirebaseUserService service = FirebaseUserService();
 
-  /// قائمة المستخدمين
+ 
   var users = <AppUser>[].obs;
 
-  /// Controllers
+
   final email = TextEditingController();
   final password = TextEditingController();
 
-  /// role (user | admin)
+
   final role = 'user'.obs;
 
   AppUser? editingUser;
@@ -24,12 +24,12 @@ class UsersController extends GetxController {
     super.onInit();
   }
 
-  /// جلب المستخدمين
+  
   Future<void> fetchUsers() async {
     users.value = await service.getUsers();
   }
 
-  /// إضافة مستخدم جديد
+ 
   Future<void> addUser() async {
     if (email.text.isEmpty || password.text.isEmpty) {
       Get.snackbar("خطأ", "يرجى إدخال الإيميل وكلمة المرور");
@@ -47,14 +47,14 @@ class UsersController extends GetxController {
     Get.back();
   }
 
-  /// بدء التعديل
+
   void edit(AppUser user) {
     editingUser = user;
     email.text = user.email;
     role.value = user.role;
   }
 
-  /// تحديث مستخدم (email + role)
+
   Future<void> updateUser() async {
     if (editingUser == null) return;
 
@@ -70,13 +70,13 @@ class UsersController extends GetxController {
     Get.back();
   }
 
-  /// حذف مستخدم
+
   Future<void> deleteUser(String uid) async {
     await service.deleteUser(uid);
     await fetchUsers();
   }
 
-  /// تنظيف الفورم
+
   void clearForm() {
     email.clear();
     password.clear();

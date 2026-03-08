@@ -57,7 +57,6 @@ class Login extends StatelessWidget {
                       ),
                     ),
 
-                    /// Email
                     CustomTextfield(
                       controller: controller.email,
                       hintText: 'enter_email',
@@ -74,7 +73,7 @@ class Login extends StatelessWidget {
                       },
                     ),
 
-                    /// Password
+                   
                     CustomTextfield(
                       controller: controller.password,
                       hintText: 'enter_password',
@@ -102,7 +101,7 @@ class Login extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-                    /// Login Button
+             
                     CustomButtonOnborading(
                       text: controller.isLoading.value
                           ? 'logging_in'

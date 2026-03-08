@@ -15,7 +15,7 @@ class CustomersScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Appcolor.background,
 
-      /// AppBar
+     
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: Customappbar(text: 'customers_section'.tr),
@@ -72,7 +72,7 @@ class CustomersScreen extends StatelessWidget {
         },
       ),
 
-      // body
+     
       body: Obx(
         () =>
             controller.customers.isEmpty
@@ -137,7 +137,7 @@ class CustomersScreen extends StatelessWidget {
                           );
                         },
 
-                        /// كرت العميل
+                      
                         child: Container(
                           height: 120,
                           width: double.infinity,
